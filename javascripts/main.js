@@ -30,10 +30,23 @@ let imageList = (searchText) => {
 
 
 $(document).ready(function() {
-  console.log("jquery is ready");
-  imageList('cat').then((dataFromImgur)=>{
-    console.log('dataFromImgur', dataFromImgur);
+  $('#clicky-button').on('click', ()=> {
+    $('#clicky-button').button('loading');
+    $('#output').html("");
+    let searchy = $('#imgur-search').val();
+    console.log('its working', searchy);
+    imageList(searchy).then((dataFromImgur)=>{
+      $('#clicky-button').button('reset');
+      console.log('dataFromImgur', dataFromImgur);
+      dataFromImgur.forEach((image)=>{
+        $('#output').append(`<img src="${image.link}">`);
+      }).catch((error) => {
+        $('#clicky-button').button('reset');
+      });
+
+    });
   });
+
 });
 
 
